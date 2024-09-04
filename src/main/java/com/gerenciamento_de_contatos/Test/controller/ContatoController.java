@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gerenciamento_de_contatos.Test.entitties.Contato;
+import com.gerenciamento_de_contatos.Test.exceptions.ContatoNotFoundException;
 import com.gerenciamento_de_contatos.Test.services.ContatoServices;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/contato")
@@ -27,13 +30,13 @@ public class ContatoController {
 	}
 	
 	@PostMapping
-	public Contato adicionarContato(@RequestBody Contato contato) {
+	public Contato adicionarContato(@Valid @RequestBody Contato contato) {
 		return contatoService.salvar(contato);
 	}
 	
 	@GetMapping("/{id}")
 	public Contato buscarPorId(@PathVariable String id) {
-		return contatoService.buscarPorid(id);
+		return contatoService.buscarPorId(id);
 	}
 	
 	@DeleteMapping("/{id}")

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gerenciamento_de_contatos.Test.entitties.Contato;
+import com.gerenciamento_de_contatos.Test.exceptions.ContatoNotFoundException;
 import com.gerenciamento_de_contatos.Test.repository.ContatoRepository;
 
 @Service
@@ -26,7 +27,8 @@ public class ContatoServices {
 		contatoRepository.deleteById(id);
 	}
 	
-	public Contato buscarPorid(String id) {
-		return contatoRepository.findById(id).orElse(null);
+	public Contato buscarPorId(String id) {
+		return contatoRepository.findById(id)
+		 	.orElseThrow(() -> new ContatoNotFoundException("Contato com ID " + id + " não encontrado"));
 	}
 }

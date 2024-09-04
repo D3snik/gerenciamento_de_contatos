@@ -5,13 +5,23 @@ import java.util.Objects;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+
 @Document(collection = "contatos")
 public class Contato {
 
 	@Id
 	private String id;
+	
+	@NotEmpty(message = "O nome não pode estar vazio")
+	@Size(min = 2, message = "O nome deve ter pelo menos 2 caracteres")
 	private String name;
+	
 	private double number;
+	
+	@Email(message = "Email deve ser válido")
 	private String email;
 
 	
